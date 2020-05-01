@@ -1,0 +1,460 @@
+{% spaceless %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <META charset="utf-8">
+        <META http-equiv="X-UA-Compatible" CONTENT="IE=edge,chrome=1">
+        <title>Estatísticas da Lotofácil</title>
+        <META NAME="viewport" CONTENT="width=device-width, height=device-height, target-densitydpi=device-dpi, initial-scale=1, maximum-scale=1, user-scalable=yes" />
+        <META NAME="description" CONTENT="Verifique os valores da loteria da caixa economica federal chamada lotofacil. Use-os para realizar chutes mais certeiros. BOA SORTE!!!">
+        <META NAME="keywords" CONTENT="loteria, lotofacil, caixa, estatisticas, lotofácil, estatísticas, estatística, loteria federal">
+        <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+        <META http-equiv="content-language" CONTENT="pt">
+        {% load compress %}
+        {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-panel.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/grid.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/button.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css">
+        {% endcompress %}
+    </head>
+    <body>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-33076350-3', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+        <div class="navbar navbar-default navbar-static-top header" role="navigation">
+            <a class="navbar-brand" href="#">
+                <img src="{{ STATIC_URL }}img/lotofacil_transp.gif" style="margin: 12px;" />
+            </a>
+        </div>
+
+        <div class="container-fluid" style="padding-top: 90px;">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="panel panel-default">
+                        <div class="panel-body" style="text-align: justify;">
+                            <p>
+                                <h4>Sobre...</h4>
+                                Verifique e colete informações relativas a loteria federal LOTOFÁCIL.<br />
+                                Fornecemos algumas informações estatísticas para que você possa escolher os melhores números para jogar.<br /><br />
+                                Mesmo fornecendo estes dados não é garantido que seu número será sorteado, portanto não nos responsabilizamos por qualquer valor gasto na loteria, e sugerimos praticar com moderação, afinal de contas, é possível gastar altos valores apenas brincando com ela.<br />
+                            </p>
+                            <hr />
+                            <p>
+                                <h4>Não sabe como funciona a LOTOFÁCIL?</h4>
+                                Para jogar é muito simples, escolha de 15 à 18 números dentre os 25 a disposição, e espere pelos sorteios que ocorrem normalmente de segunda, quarta e sexta.<br/ ><br />
+                                Para maiores informações, entre no site da <a href="http://www1.caixa.gov.br/loterias/loterias/lotofacil/como_jogar.asp">CAIXA</a> e veja como jogar.
+                            </p>
+                            <hr />
+                            <p>
+                                <h4>Doações</h4>
+                                Se quiser me ajudar a melhorar cada vez este software, ou quem sabe, ele te ajudou a ganhar uma grana na loteria, pague um café para mim ou entre em contato! :)<br /><br />
+                                <a href="mailto:rdenadai@gmail.com" class="btn btn-info btn-lg"><i class="fa fa-envelope"></i>&nbsp;&nbsp;Contato</a>
+                                <a id="btnDonate" class="btn btn-warning btn-lg"><i class="fa fa-usd"></i>&nbsp;&nbsp;Doações</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row-fluid">
+                <div class="span12">
+                    <div><h3><i class="fa fa-list"></i>&nbsp;Sorteios realizados:</h3></div>
+                    <div id="listaTotal"></div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form id="formRecalcularJogos">
+                                        <h4>Calcular valores em cima dos sorteios:</h4>
+                                        <div class="row-fluid">
+                                            <div class="span4">
+                                                <label>Inicial:</label>
+                                                <input type="text" class="input-small number" name="txtIniSorteio" id="txtIniSorteio" placeholder="Inicial" maxlength="5" value="{{ inicial }}" />
+                                            </div>
+                                            <div class="span4">
+                                                <label>Final:</label>
+                                                <input type="text" class="input-small number" name="txtFimSorteio" id="txtFimSorteio" placeholder="Final"  maxlength="5" value="{{ total }}" />
+                                            </div>
+                                            <div class="span4" style="padding-top: 20px;">
+                                                <button id="btnRecalcularJogos" type="submit" class="btn btn-primary">Calcular</button>
+                                            </div>
+                                        </div>
+                                        <small>Todos as listagens serão atualizadas com o range de sorteios selecionados acima, até mesmo as Combinações.</small>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <form id="formModelarGraficos">
+                                        <h4>Calcular valores dos gráficos para o número no sorteio:</h4>
+                                        <div class="row-fluid">
+                                            <div class="span4">
+                                                <label>Número:</label>
+                                                <input type="text" class="input-small number" name="txtNumero" id="txtNumero" placeholder="Número" maxlength="2" value="1" />&nbsp;&nbsp;
+                                            </div>
+                                            <div class="span4">
+                                                <label>Sorteio:</label>
+                                                <input type="text" class="input-small number" name="txtFimSorteioNumero" id="txtFimSorteioNumero" placeholder="Sorteio Final - 15"  maxlength="5" value="{{ total }}" />
+                                            </div>
+                                            <div class="span4" style="padding-top: 20px;">
+                                                <button id="btnModelarGraficos" type="submit" class="btn btn-primary">Calcular</button>
+                                            </div>
+                                        </div>
+                                        <small>Os gráficos gerão gerados levando em conta o número no range do sorteio selecionado menos os 15 anteriores.</small>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div><h4><i class="fa fa-check-square"></i>&nbsp;Porcentagem de saídas dos números:</h4></div>
+                    <div id="porcentagem"></div>
+                </div>
+                <div class="span6">
+                    <div>
+                        <div><h4><i class="fa fa-bar-chart"></i>&nbsp;Frequência do Número <span class="numeroFrequenciaAtual">1</span>:</h4></div>
+                        <div class="panel panel-default">
+                            <div class="panel-body" style="text-align: center;">
+                                <canvas id="frequenciaNumerica" width="450" height="230"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div><h4><i class="fa fa-line-chart"></i>&nbsp;Somatória / Frequência do Número <span class="numeroFrequenciaAtual">1</span>:</h4></div>
+                        <div class="panel panel-default">
+                            <div class="panel-body" style="text-align: center;">
+                                <canvas id="frequenciaPeriodo" width="450" height="230"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <hr />
+                </div>
+            </div>
+
+            <div class="tabbable"> <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs" style="margin-bottom: 1px;">
+                    <li class="active"><a href="#tab1" data-toggle="tab"><h4><i class="fa fa-list"></i>&nbsp;Combinações de 2, 3</h4></a></li>
+                    <li><a href="#tab2" data-toggle="tab"><h4><i class="fa fa-list"></i>&nbsp;Combinações de 4, 5</h4></a></li>
+                    <li><a href="#tab3" data-toggle="tab"><h4><i class="fa fa-list"></i>&nbsp;Combinações de 6, 7</h4></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <p>
+                            <div class="row-fluid" style="width: 99%">
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 2:</h5></div>
+                                    <div id="duplos"></div>
+                                </div>
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 3:</h5></div>
+                                    <div id="triplos"></div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <p>
+                            <div class="row-fluid" style="width: 99%">
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 4:</h5></div>
+                                    <div id="quadruplos"></div>
+                                </div>
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 5:</h5></div>
+                                    <div id="quintuplos"></div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="tab3">
+                        <p>
+                            <div class="row-fluid" style="width: 99%">
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 6:</h5></div>
+                                    <div id="hex"></div>
+                                </div>
+                                <div class="span6">
+                                    <div><h5><i class="fa fa-superscript"></i>&nbsp;Combinações de 7:</h5></div>
+                                    <div id="hep"></div>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% csrf_token %}
+    </body>
+
+    {% load compress %}
+    {% compress js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/chart.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/grid.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            var ini = {{ inicial }};
+            var fim = {{ total }};
+
+            var dataFrequenciaNumerica = {
+                'labels': [],
+                'datasets': [
+                    {
+                        'fillColor': '#007F31',
+                        'strokeColor': '#267F49',
+                        'data': []
+                    }
+                ]
+            };
+
+            var dataSomaFrequenciaNumerica = {
+                'labels': [],
+                'datasets': [
+                    {
+                        'fillColor': '#345894',
+                        'strokeColor': '#4779CB',
+                        'pointColor': "#041F4C",
+                        'pointStrokeColor': "#041F4C",
+                        'pointHighlightFill': "#07337F",
+                        'pointHighlightStroke': "#07337F",
+                        'data': []
+                    }
+                ]
+            };
+
+            var executaRecalcularJogos = function(evt) {
+                var ini = parseInt($.trim($('#txtIniSorteio').val()), 10);
+                var fim = parseInt($.trim($('#txtFimSorteio').val()), 10);
+                if(fim > ini && ini > 0 && fim > 0 && fim <= parseInt('{{ total }}', 10)) {
+                    $('#porcentagem').grid('reload', {ini: ini, fim: fim});
+                    $('#duplos').grid('reload', {ini: ini, fim: fim});
+                    $('#triplos').grid('reload', {ini: ini, fim: fim});
+                    $('#quadruplos').grid('reload', {ini: ini, fim: fim});
+                    $('#quintuplos').grid('reload', {ini: ini, fim: fim});
+                    $('#hex').grid('reload', {ini: ini, fim: fim});
+                    $('#hep').grid('reload', {ini: ini, fim: fim});
+                }
+            };
+
+            var executaModelarGraficos = function(evt) {
+                var numero = parseInt($.trim($('#txtNumero').val()), 10);
+                var fim = parseInt($.trim($('#txtFimSorteioNumero').val()), 10);
+                if((numero > 0 && numero <=25) && (fim > 0 && fim <= parseInt('{{ total }}', 10))) {
+                    $('.numeroFrequenciaAtual').html(numero);
+                    atualizaGraficoFrequenciaNumerica(numero, fim);
+                    atualizaGraficoSomaFrequenciaNumerica(numero, fim);
+                }
+            };
+
+            var atualizaGraficoFrequenciaNumerica = function(numero, fim) {
+                var ctx = document.getElementById("frequenciaNumerica").getContext("2d");
+                var chartFrequenciaNumerica = new Chart(ctx);
+                chartFrequenciaNumerica.Bar(dataFrequenciaNumerica, {animation : false});
+                $.ajax({
+                    url: 'frequencianumerica/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                        numero: numero,
+                        fim: fim
+                    }
+                })
+                .done(function(data) {
+                    dataFrequenciaNumerica['labels'] = data['labels'];
+                    dataFrequenciaNumerica['datasets'][0]['data'] = data['data'];
+                    chartFrequenciaNumerica.Bar(dataFrequenciaNumerica, {animation : false});
+                });
+            };
+
+            var atualizaGraficoSomaFrequenciaNumerica = function(numero, fim) {
+                var ctx = document.getElementById("frequenciaPeriodo").getContext("2d");
+                var chartSomaFrequenciaNumerica = new Chart(ctx);
+                chartSomaFrequenciaNumerica.Line(dataSomaFrequenciaNumerica, {bezierCurve: false, animation : false});
+                $.ajax({
+                    url: 'frequencianumericaperiodo/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                        numero: numero,
+                        fim: fim
+                    }
+                })
+                .done(function(data) {
+                    dataSomaFrequenciaNumerica['labels'] = data['labels'];
+                    dataSomaFrequenciaNumerica['datasets'][0]['data'] = data['data'];
+                    chartSomaFrequenciaNumerica.Line(dataSomaFrequenciaNumerica, {bezierCurve: false, animation : false});
+                });
+            };
+
+            atualizaGraficoFrequenciaNumerica(1, fim);
+            atualizaGraficoSomaFrequenciaNumerica(1, fim);
+
+            $('#formRecalcularJogos').on('submit', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                executaRecalcularJogos(evt);
+            });
+
+            $('#btnRecalcularJogos').on('click', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                executaRecalcularJogos(evt);
+            });
+
+            $('#formModelarGraficos').on('submit', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                executaModelarGraficos(evt);
+            });
+
+            $('#btnModelarGraficos').on('click', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                executaModelarGraficos(evt);
+            });
+
+            // If you want, you can make me happy!
+            $('#btnDonate').off('click').on('click', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=rdenadai%40gmail%2ecom&lc=BR&item_name=Rodolfo%20De%20Nadai&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted');
+            });
+
+            $('#listaTotal').grid({
+                headers : [
+                    {name:"Concurso", field: 'concurso'},
+                    {name:"Data", field: 'data'},
+                    {name:"N&uacute;meros", field: 'numeros'},
+                    {name:"Lei dos Grandes n&uacute;meros", field: 'soma', width: '160px'}
+                ]
+                ,id_key: "pk"
+                ,url : "valores/"
+                ,numbered: false
+                ,check: false
+                ,qtdePagination: 5
+                ,data:{
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                    sort:[
+                        { property:'concurso', direction:'DESC' },
+                        { property:'data', direction:'DESC' }
+                    ]
+                }
+            });
+
+
+            $('#porcentagem').grid({
+                headers : [
+                    {name:"N&uacute;mero", field:'numero'},
+                    {name:"Qtde. Saída", field:'saiu'},
+                    {name:"Porcentagem", field:'porcentagem'}
+                ]
+                ,id_key: "pk"
+                ,url : "porcentagem/"
+                ,numbered: false
+                ,check: false
+                ,data:{
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                    ini: ini,
+                    fim: fim,
+                    sort:[
+                        { property:'porcentagem', direction:'DESC' },
+                        { property:'numero', direction:'DESC' }
+                    ]
+                }
+                ,renderer: {
+                    'porcentagem': function(value) {
+                        return value + "%";
+                    }
+                }
+            });
+
+            var headers = [
+                {name: "Números", field: 'numeros'}
+                ,{name: "Quantidade", field: 'quantidade'}
+                ,{name: "Porcentagem", field: 'porcentagem'}
+            ];
+
+            var data = {
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                ini: ini,
+                fim: fim,
+                sort:[
+                    { property:'qtd', direction:'DESC' },
+                    { property:'porcentagem', direction:'DESC' }
+                ]
+            };
+
+            var grid = {
+                headers: headers
+                ,id_key: "pk"
+                ,numbered: false
+                ,check: false
+                ,qtdePagination: 3
+                ,data: data
+                ,renderer: {
+                    'porcentagem': function(value) {
+                        return value + "%";
+                    }
+                }
+            };
+
+            grid['url'] = 'combinacoespares/';
+            $('#duplos').grid(grid);
+
+            grid['url'] = 'combinacoestriplos/';
+            $('#triplos').grid(grid);
+
+            grid['url'] = 'combinacoesquadruplos/';
+            $('#quadruplos').grid(grid);
+
+            grid['url'] = 'combinacoesquintuplos/';
+            $('#quintuplos').grid(grid);
+
+            grid['url'] = 'combinacoeshex/';
+            $('#hex').grid(grid);
+
+            grid['url'] = 'combinacoeshep/';
+            $('#hep').grid(grid);
+        });
+    </script>
+    {% endcompress %}
+</html>
+{% endspaceless %}

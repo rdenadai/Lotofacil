@@ -1,0 +1,136 @@
+.sharperBtn {
+	text-decoration: none !important;
+	color: inherit !important;
+	border: 1px solid #ccc;
+	-webkit-box-shadow:  0px 0px 2px 1px rgba(128, 128, 128, 0.2);
+	box-shadow:  0px 0px 2px 1px rgba(128, 128, 128, 0.2);
+}
+.rounded {
+	-webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.font1 {
+	font-size: 1.3em !important;
+	padding: 10px 22px;
+	text-shadow: 0px 1px 1px #333;
+}
+.font2 {
+	font-size: 1.1em !important;
+	padding: 7px 17px;
+	text-shadow: 0px 1px 1px #333;
+}
+.font3 {
+	font-size: 0.9em !important;
+	padding: 5px 13px;
+	text-shadow: 0px 1px 1px #333;
+}
+.font4 {
+	font-size: 0.9em !important;
+	padding: 3px 10px;
+	text-shadow: 0px 1px 1px #333;
+}
+.font5 {
+	font-size: 0.8em !important;
+	padding: 1px 8px;
+	text-shadow: 0px 1px 1px #333;
+}
+.cinza {
+	border: 1px solid #888;
+	background-color: #bbb;
+	color: #444 !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.cinza:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.azul {
+	border: 1px solid #1B58B8;
+	background-color: #1FAEFF;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.azul:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.marinho {
+	border: 1px solid #368DAF;
+	background-color: #5295B0;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.marinho:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.verde {
+	border: 1px solid #128425;
+	background-color: #94BD4A;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.verde:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.vermelho {
+	border: 1px solid #B81B1B;
+	background-color: #FF2E12;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.vermelho:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.laranja {
+	border: 1px solid #E56C19;
+	background-color: #FF981D;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.laranja:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.amarelo {
+	border: 1px solid #C69408;
+	background-color: #E1B700;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.amarelo:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.purpura {
+	border: 1px solid #8C0095;
+	background-color: #A700AE;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.purpura:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.teal {
+	border: 1px solid #008299;
+	background-color: #00A0B1;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #555;
+}
+.teal:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
+.marrom {
+	border: 1px solid #2E1700;
+	background-color: #632F00;
+	color: #fff !important;
+	text-shadow: 0px 1px 1px #777;
+}
+.marrom:hover {
+	opacity:0.90;
+	filter:alpha(opacity=90);
+}
